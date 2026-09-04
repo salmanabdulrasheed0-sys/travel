@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gentle Spa & Salon | DHA Karachi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --navy: #0a0a1a;
+    --navy2: #0f0f28;
+    --rose-gold: #c9956b;
+    --rose-gold-light: #e8b48a;
+    --blush: #f5d5c8;
+    --cream: #faf5f0;
+    --glass: rgba(201,149,107,0.08);
+    --glass-border: rgba(201,149,107,0.2);
+    --text-dim: rgba(245,213,200,0.6);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--navy); color: var(--cream); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top:0; width:100%; z-index:1000;
+    background: rgba(10,10,26,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 40px;
+    display: flex; align-items:center; justify-content:space-between;
+    height: 70px;
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--rose-gold);
+    letter-spacing: 2px;
+    display: flex; align-items:center; gap:10px;
+  }
+  .nav-logo span { color: var(--cream); font-weight:300; font-size:0.8rem; display:block; letter-spacing:4px; }
+  .nav-links { display:flex; gap:30px; list-style:none; }
+  .nav-links a {
+    color: var(--cream); text-decoration:none; font-size:0.85rem;
+    letter-spacing:1.5px; text-transform:uppercase; font-weight:500;
+    transition:color 0.3s; position:relative; padding-bottom:4px;
+  }
+  .nav-links a::after {
+    content:''; position:absolute; bottom:0; left:0; width:0; height:1px;
+    background: var(--rose-gold); transition: width 0.3s;
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+  .nav-links a:hover, .nav-links a.active { color: var(--rose-gold); }
+  .nav-wa {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color:#fff; border:none; padding:10px 22px; border-radius:50px;
+    font-size:0.8rem; cursor:pointer; font-weight:600; letter-spacing:1px;
+    display:flex; align-items:center; gap:8px; text-decoration:none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-wa:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(37,211,102,0.3); }
+
+  /* PAGES */
+  .page { display:none; }
+  .page.active { display:block; }
+
+  /* ===================== HOME PAGE ===================== */
+  /* HERO */
+  .hero {
+    height: 100vh; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-bg {
+    position:absolute; inset:0;
+    background: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1600&q=80') center/cover no-repeat;
+    transform: scale(1.1);
+    animation: slowZoom 20s ease-in-out infinite alternate;
+  }
+  @keyframes slowZoom { from { transform:scale(1.1); } to { transform:scale(1.2); } }
+  .hero-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(10,10,26,0.88) 0%, rgba(10,10,26,0.5) 50%, rgba(15,10,20,0.85) 100%);
+  }
+  .petals { position:absolute; inset:0; pointer-events:none; }
+  .petal {
+    position:absolute; width:8px; height:12px; border-radius:50% 50% 50% 0;
+    background: linear-gradient(135deg, rgba(201,149,107,0.4), rgba(245,213,200,0.2));
+    animation: floatPetal linear infinite;
+    top: -20px;
+  }
+  @keyframes floatPetal {
+    0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity:0; }
+    10% { opacity:1; }
+    90% { opacity:0.5; }
+    100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity:0; }
+  }
+  .hero-content { position:relative; z-index:2; text-align:center; padding:0 20px; }
+  .hero-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-size:1rem; letter-spacing:6px; text-transform:uppercase;
+    color: var(--rose-gold); font-style:italic; margin-bottom:20px;
+    opacity:0; animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--cream);
+    text-shadow: 0 0 80px rgba(201,149,107,0.3);
+    opacity:0; animation: fadeUp 1s 0.5s forwards;
+  }
+  .hero-title em { color: var(--rose-gold); font-style:italic; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--blush); font-weight:300;
+    margin: 20px 0 40px; letter-spacing:1px;
+    opacity:0; animation: fadeUp 1s 0.7s forwards;
+  }
+  .hero-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+    opacity:0; animation: fadeUp 1s 0.9s forwards; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    color: var(--navy); border:none; padding:16px 36px; border-radius:50px;
+    font-size:0.9rem; font-weight:700; cursor:pointer; letter-spacing:1.5px;
+    text-transform:uppercase; text-decoration:none;
+    box-shadow: 0 8px 30px rgba(201,149,107,0.4);
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 15px 40px rgba(201,149,107,0.5); }
+  .btn-outline {
+    background: transparent; color: var(--cream); border:1.5px solid rgba(201,149,107,0.5);
+    padding:16px 36px; border-radius:50px; font-size:0.9rem; font-weight:500;
+    cursor:pointer; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--rose-gold); color: var(--rose-gold); transform:translateY(-3px); }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+  /* HERO STATS */
+  .hero-stats {
+    position:absolute; bottom:40px; left:50%; transform:translateX(-50%);
+    display:flex; gap:60px; z-index:2;
+  }
+  .stat-item { text-align:center; }
+  .stat-num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--rose-gold); font-weight:700; }
+  .stat-label { font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin-top:4px; }
+
+  /* SECTIONS COMMON */
+  section { padding: 100px 40px; }
+  .section-eyebrow {
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:1rem; letter-spacing:4px; color:var(--rose-gold);
+    text-align:center; margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3rem);
+    text-align:center; margin-bottom:20px; color:var(--cream);
+  }
+  .section-divider {
+    width:80px; height:2px; margin:0 auto 50px;
+    background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+  }
+  .section-subtitle {
+    font-family:'Cormorant Garamond',serif; font-size:1.2rem;
+    text-align:center; color:var(--text-dim); max-width:600px; margin:0 auto 50px;
+    line-height:1.8;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1200px; margin:0 auto;
+    align-items:center;
+  }
+  .about-imgs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:16px; }
+  .about-img-main {
+    grid-column:1/-1;
+    border-radius:20px; overflow:hidden; height:280px;
+    transform: perspective(1000px) rotateX(3deg);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--glass-border);
+    transition:transform 0.3s;
+  }
+  .about-img-main:hover { transform: perspective(1000px) rotateX(0deg) scale(1.02); }
+  .about-img-sm {
+    border-radius:16px; overflow:hidden; height:160px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    transform: perspective(800px) rotateY(4deg);
+    transition:transform 0.3s;
+  }
+  .about-img-sm:nth-child(3) { transform: perspective(800px) rotateY(-4deg); }
+  .about-img-sm:hover { transform: perspective(800px) rotateY(0deg) scale(1.03); }
+  .about-img-main img, .about-img-sm img { width:100%; height:100%; object-fit:cover; }
+  .about-text h2 {
+    font-family:'Playfair Display',serif; font-size:2.2rem; margin-bottom:20px;
+    color:var(--cream); line-height:1.2;
+  }
+  .about-text h2 span { color:var(--rose-gold); font-style:italic; }
+  .about-text p { color:var(--text-dim); line-height:1.9; margin-bottom:16px; font-size:0.95rem; }
+  .about-badges { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+  .badge {
+    background:var(--glass); border:1px solid var(--glass-border);
+    padding:8px 18px; border-radius:50px;
+    font-size:0.8rem; letter-spacing:1px; color:var(--rose-gold-light);
+  }
+
+  /* PACKAGES */
+  .packages { background: linear-gradient(135deg, #080818, #120a20); }
+  .packages-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; max-width:900px; margin:0 auto; }
+  .package-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius:24px; padding:50px 40px;
+    text-align:center; position:relative; overflow:hidden;
+    transform: perspective(1000px) rotateX(2deg);
+    transition: all 0.4s;
+    cursor:pointer;
+  }
+  .package-card::before {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(201,149,107,0.05), transparent);
+    opacity:0; transition:opacity 0.3s;
+  }
+  .package-card:hover::before { opacity:1; }
+  .package-card:hover { transform: perspective(1000px) rotateX(0deg) translateY(-8px);
+    box-shadow: 0 30px 60px rgba(201,149,107,0.15); }
+  .package-card.premium {
+    border-color: var(--rose-gold);
+    background: linear-gradient(135deg, rgba(201,149,107,0.12), rgba(201,149,107,0.04));
+  }
+  .package-badge {
+    position:absolute; top:20px; right:20px;
+    background: var(--rose-gold); color:var(--navy);
+    padding:4px 14px; border-radius:50px; font-size:0.72rem;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  }
+  .pkg-icon { font-size:3rem; margin-bottom:20px; }
+  .pkg-name {
+    font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream);
+    margin-bottom:10px;
+  }
+  .pkg-desc { color:var(--text-dim); font-size:0.9rem; line-height:1.7; margin-bottom:24px; }
+  .pkg-price {
+    font-family:'Playfair Display',serif; font-size:2.8rem; color:var(--rose-gold);
+    font-weight:700; margin-bottom:8px;
+  }
+  .pkg-price-sub { color:var(--text-dim); font-size:0.8rem; margin-bottom:30px; letter-spacing:1px; }
+  .pkg-features { list-style:none; margin-bottom:36px; text-align:left; }
+  .pkg-features li {
+    padding:8px 0; border-bottom:1px solid var(--glass-border);
+    font-size:0.88rem; color:var(--blush); display:flex; align-items:center; gap:10px;
+  }
+  .pkg-features li::before { content:'✦'; color:var(--rose-gold); font-size:0.6rem; }
+  .pkg-btn {
+    width:100%; padding:14px; border-radius:50px; border:none;
+    font-weight:700; font-size:0.88rem; letter-spacing:1.5px; text-transform:uppercase;
+    cursor:pointer; transition:all 0.3s; text-decoration:none; display:block;
+  }
+  .pkg-btn-primary { background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light)); color:var(--navy); }
+  .pkg-btn-primary:hover { box-shadow:0 10px 30px rgba(201,149,107,0.4); transform:translateY(-2px); }
+  .pkg-btn-outline { background:transparent; border:1.5px solid var(--rose-gold); color:var(--rose-gold); }
+  .pkg-btn-outline:hover { background:var(--rose-gold); color:var(--navy); }
+
+  /* GALLERY (HOME) */
+  .gallery-grid {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 200px);
+    gap:12px; max-width:1200px; margin:0 auto;
+  }
+  .gallery-item {
+    border-radius:16px; overflow:hidden; position:relative;
+    transition:transform 0.4s; cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .gallery-item:nth-child(1) { grid-column:1/3; grid-row:1/2; }
+  .gallery-item:nth-child(2) { grid-column:3/4; grid-row:1/3; }
+  .gallery-item:nth-child(3) { grid-column:4/5; grid-row:1/2; }
+  .gallery-item:nth-child(5) { grid-column:3/5; grid-row:3/4; }
+  .gallery-item:hover { transform:scale(1.03); z-index:2;
+    box-shadow:0 20px 50px rgba(201,149,107,0.2); }
+  .gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+  .gallery-item:hover img { transform:scale(1.08); }
+  .gallery-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(10,10,26,0.7) 0%, transparent 50%);
+    opacity:0; transition:opacity 0.3s;
+  }
+  .gallery-item:hover .gallery-overlay { opacity:1; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--navy2); }
+  .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1200px; margin:0 auto; }
+  .review-card {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:20px; padding:36px 30px;
+    transform: perspective(800px) rotateX(1deg);
+    transition:all 0.3s;
+  }
+  .review-card:hover { transform: perspective(800px) rotateX(0deg) translateY(-6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.3); }
+  .review-stars { color:var(--rose-gold); font-size:0.9rem; margin-bottom:16px; letter-spacing:2px; }
+  .review-text { font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--blush);
+    font-style:italic; line-height:1.7; margin-bottom:20px; }
+  .reviewer { display:flex; align-items:center; gap:14px; }
+  .reviewer-avatar {
+    width:45px; height:45px; border-radius:50%;
+    border:2px solid var(--rose-gold); overflow:hidden;
+  }
+  .reviewer-avatar img { width:100%; height:100%; object-fit:cover; }
+  .reviewer-name { font-weight:600; font-size:0.9rem; color:var(--cream); }
+  .reviewer-date { font-size:0.78rem; color:var(--text-dim); margin-top:2px; }
+
+  /* LOCATION TEASER */
+  .location-teaser {
+    background: linear-gradient(135deg, rgba(201,149,107,0.08), rgba(10,10,26,0));
+    border:1px solid var(--glass-border); border-radius:24px;
+    max-width:900px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; padding:60px;
+    align-items:center;
+  }
+  .location-info h3 { font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:20px; color:var(--cream); }
+  .location-detail { display:flex; align-items:flex-start; gap:14px; margin-bottom:16px; color:var(--text-dim); font-size:0.9rem; line-height:1.6; }
+  .location-detail i { color:var(--rose-gold); margin-top:3px; width:16px; }
+  .map-embed { border-radius:16px; overflow:hidden; height:220px; border:1px solid var(--glass-border); }
+  .map-embed iframe { width:100%; height:100%; border:none; filter:grayscale(0.3) saturate(1.2); }
+
+  /* ===================== SERVICES PAGE ===================== */
+  .services-hero {
+    height: 55vh; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .services-hero-bg {
+    position:absolute; inset:0;
+    background: url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1600&q=80') center/cover;
+  }
+  .services-hero-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(to bottom, rgba(10,10,26,0.7), rgba(10,10,26,0.95));
+  }
+  .page-hero-content { position:relative; z-index:2; text-align:center; }
+  .page-hero-content h1 { font-family:'Playfair Display',serif; font-size:3.5rem; color:var(--cream); margin-bottom:12px; }
+  .page-hero-content p { font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--text-dim); font-style:italic; }
+
+  /* SERVICE CATEGORIES */
+  .service-categories { max-width:1200px; margin:0 auto; }
+  .service-cat {
+    margin-bottom:80px;
+  }
+  .cat-header {
+    display:flex; align-items:center; gap:20px; margin-bottom:40px;
+    padding-bottom:20px; border-bottom:1px solid var(--glass-border);
+  }
+  .cat-icon-wrap {
+    width:60px; height:60px; border-radius:50%;
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem; color:var(--navy); flex-shrink:0;
+  }
+  .cat-title { font-family:'Playfair Display',serif; font-size:2rem; color:var(--cream); }
+  .cat-subtitle { color:var(--text-dim); font-size:0.9rem; margin-top:4px; }
+  .services-list { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .service-item {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:20px; overflow:hidden;
+    transform: perspective(600px) rotateY(2deg);
+    transition:all 0.4s;
+  }
+  .service-item:nth-child(even) { transform: perspective(600px) rotateY(-2deg); }
+  .service-item:hover { transform: perspective(600px) rotateY(0deg) translateY(-6px);
+    box-shadow:0 20px 40px rgba(201,149,107,0.12); }
+  .service-img { height:180px; overflow:hidden; }
+  .service-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+  .service-item:hover .service-img img { transform:scale(1.08); }
+  .service-info { padding:24px; }
+  .service-name { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--cream); margin-bottom:8px; }
+  .service-desc { color:var(--text-dim); font-size:0.85rem; line-height:1.7; margin-bottom:14px; }
+  .service-duration { display:inline-flex; align-items:center; gap:6px;
+    color:var(--rose-gold); font-size:0.8rem; font-weight:600; letter-spacing:1px; }
+
+  /* PROCESS */
+  .process { background: var(--navy2); }
+  .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; max-width:1200px; margin:0 auto; }
+  .process-step {
+    text-align:center; padding:40px 24px;
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:20px; position:relative;
+    transform: perspective(800px) rotateX(3deg);
+    transition:transform 0.3s;
+  }
+  .process-step:hover { transform: perspective(800px) rotateX(0deg) translateY(-5px); }
+  .step-num {
+    font-family:'Playfair Display',serif; font-size:4rem; color:rgba(201,149,107,0.15);
+    font-weight:700; line-height:1; margin-bottom:16px;
+  }
+  .step-icon { font-size:2rem; margin-bottom:16px; color:var(--rose-gold); }
+  .step-title { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--cream); margin-bottom:10px; }
+  .step-desc { color:var(--text-dim); font-size:0.85rem; line-height:1.7; }
+
+  /* BENEFITS */
+  .benefits-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1200px; margin:0 auto; }
+  .benefit-card {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:20px; padding:36px 30px; text-align:center;
+    transition:all 0.3s;
+  }
+  .benefit-card:hover { transform:translateY(-6px); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
+  .benefit-icon { font-size:2.5rem; color:var(--rose-gold); margin-bottom:16px; }
+  .benefit-title { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--cream); margin-bottom:10px; }
+  .benefit-text { color:var(--text-dim); font-size:0.85rem; line-height:1.7; }
+
+  /* ===================== GALLERY PAGE ===================== */
+  .gallery-page-grid {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    max-width:1200px; margin:0 auto;
+  }
+  .gallery-page-item {
+    border-radius:16px; overflow:hidden; position:relative; cursor:pointer;
+    aspect-ratio:4/3;
+    transform: perspective(600px) rotateX(1deg) rotateY(1deg);
+    transition:all 0.4s;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .gallery-page-item:nth-child(even) { transform: perspective(600px) rotateX(1deg) rotateY(-1deg); }
+  .gallery-page-item:hover {
+    transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.03);
+    z-index:2; box-shadow:0 25px 50px rgba(201,149,107,0.2);
+  }
+  .gallery-page-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+  .gallery-page-item:hover img { transform:scale(1.06); }
+  .gallery-page-item .overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(10,10,26,0.8) 0%, transparent 60%);
+    opacity:0; transition:opacity 0.3s; display:flex; align-items:flex-end; padding:20px;
+  }
+  .gallery-page-item:hover .overlay { opacity:1; }
+  .overlay-label { font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--cream); font-style:italic; }
+
+  /* GALLERY FILTER */
+  .gallery-filter { display:flex; justify-content:center; gap:12px; margin-bottom:50px; flex-wrap:wrap; }
+  .filter-btn {
+    background:var(--glass); border:1px solid var(--glass-border);
+    color:var(--blush); padding:10px 24px; border-radius:50px;
+    font-size:0.82rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer;
+    transition:all 0.3s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    color:var(--navy); border-color:transparent; font-weight:700;
+  }
+
+  /* AMBIANCE */
+  .ambiance-grid { display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:16px; max-width:1200px; margin:0 auto; }
+  .ambiance-col { display:flex; flex-direction:column; gap:16px; }
+  .ambiance-item { border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.4); }
+  .ambiance-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s; }
+  .ambiance-item:hover img { transform:scale(1.05); }
+  .ambiance-col.mid .ambiance-item { height:400px; }
+  .ambiance-col:not(.mid) .ambiance-item { height:180px; }
+
+  /* ===================== CONTACT PAGE ===================== */
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; max-width:1100px; margin:0 auto; }
+  .contact-info h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--cream); margin-bottom:12px; }
+  .contact-info p { color:var(--text-dim); line-height:1.8; margin-bottom:30px; }
+  .contact-item {
+    display:flex; align-items:flex-start; gap:16px; margin-bottom:24px;
+    padding:20px; background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:16px; transition:all 0.3s;
+  }
+  .contact-item:hover { border-color:var(--rose-gold); transform:translateX(4px); }
+  .contact-icon {
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--navy); font-size:1rem;
+  }
+  .contact-label { font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--rose-gold); margin-bottom:4px; }
+  .contact-val { font-size:0.95rem; color:var(--cream); line-height:1.5; }
+
+  /* FORM */
+  .contact-form {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:24px; padding:50px 40px;
+  }
+  .contact-form h3 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream); margin-bottom:30px; }
+  .form-group { margin-bottom:20px; }
+  .form-group label { display:block; font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--rose-gold); margin-bottom:8px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width:100%; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border);
+    border-radius:12px; padding:14px 18px; color:var(--cream); font-size:0.9rem;
+    font-family:'Inter',sans-serif; outline:none; transition:border-color 0.3s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color:var(--rose-gold);
+    box-shadow:0 0 0 3px rgba(201,149,107,0.1);
+  }
+  .form-group select option { background:var(--navy); }
+  .form-group textarea { min-height:100px; resize:vertical; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .form-submit {
+    width:100%; padding:16px; border-radius:50px; border:none;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color:#fff; font-size:0.9rem; font-weight:700; letter-spacing:1.5px;
+    text-transform:uppercase; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    transition:all 0.3s;
+  }
+  .form-submit:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(37,211,102,0.35); }
+
+  /* HOURS */
+  .hours-section { background: var(--navy2); }
+  .hours-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:12px; max-width:1100px; margin:0 auto; }
+  .day-card {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:16px; padding:24px 12px; text-align:center;
+    transition:all 0.3s;
+  }
+  .day-card.today { border-color:var(--rose-gold); background:rgba(201,149,107,0.1); }
+  .day-card:hover { transform:translateY(-5px); box-shadow:0 15px 30px rgba(0,0,0,0.3); }
+  .day-name { font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin-bottom:10px; }
+  .day-hours { font-family:'Playfair Display',serif; font-size:0.85rem; color:var(--rose-gold); font-weight:700; }
+  .day-badge { margin-top:8px; display:inline-block; background:rgba(39,174,96,0.2); color:#2ecc71;
+    border-radius:50px; padding:3px 10px; font-size:0.7rem; font-weight:600; }
+
+  /* FAQ */
+  .faq-list { max-width:800px; margin:0 auto; }
+  .faq-item {
+    background:var(--glass); border:1px solid var(--glass-border);
+    border-radius:16px; margin-bottom:12px; overflow:hidden; cursor:pointer;
+    transition:border-color 0.3s;
+  }
+  .faq-item.open { border-color:var(--rose-gold); }
+  .faq-q {
+    padding:22px 28px; display:flex; justify-content:space-between; align-items:center;
+    font-size:1rem; color:var(--cream); font-weight:500;
+  }
+  .faq-q i { color:var(--rose-gold); transition:transform 0.3s; }
+  .faq-item.open .faq-q i { transform:rotate(45deg); }
+  .faq-a { display:none; padding:0 28px 22px; color:var(--text-dim); font-size:0.9rem; line-height:1.8; }
+  .faq-item.open .faq-a { display:block; }
+
+  /* CHANNEL CTA */
+  .channel-cta {
+    background: linear-gradient(135deg, rgba(201,149,107,0.1), rgba(201,149,107,0.03));
+    border:1px solid var(--glass-border); border-radius:24px;
+    max-width:700px; margin:0 auto; padding:60px; text-align:center;
+  }
+  .channel-cta h3 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:16px; color:var(--cream); }
+  .channel-cta p { color:var(--text-dim); margin-bottom:30px; line-height:1.7; }
+  .wa-channel-btn {
+    display:inline-flex; align-items:center; gap:12px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color:#fff; padding:16px 40px; border-radius:50px;
+    font-weight:700; font-size:1rem; text-decoration:none; letter-spacing:1px;
+    box-shadow:0 10px 30px rgba(37,211,102,0.3);
+    transition:all 0.3s;
+  }
+  .wa-channel-btn:hover { transform:translateY(-3px); box-shadow:0 15px 40px rgba(37,211,102,0.4); }
+  .wa-channel-btn i { font-size:1.4rem; }
+
+  /* FOOTER */
+  footer {
+    background: #050510;
+    border-top: 1px solid var(--glass-border);
+    padding: 80px 40px 30px;
+  }
+  .footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:50px; max-width:1200px; margin:0 auto 60px; }
+  .footer-brand .logo {
+    font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--rose-gold);
+    margin-bottom:16px; display:block;
+  }
+  .footer-brand p { color:var(--text-dim); font-size:0.88rem; line-height:1.8; margin-bottom:24px; }
+  .footer-social { display:flex; gap:12px; }
+  .social-icon {
+    width:40px; height:40px; border-radius:50%;
+    background:var(--glass); border:1px solid var(--glass-border);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--blush); font-size:0.9rem; transition:all 0.3s; text-decoration:none;
+  }
+  .social-icon:hover { background:var(--rose-gold); color:var(--navy); border-color:var(--rose-gold); }
+  .footer-col h4 {
+    font-family:'Playfair Display',serif; color:var(--cream); font-size:1.1rem;
+    margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--glass-border);
+  }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li { margin-bottom:10px; }
+  .footer-col ul li a, .footer-col ul li {
+    color:var(--text-dim); text-decoration:none; font-size:0.88rem;
+    transition:color 0.3s; display:flex; align-items:center; gap:8px;
+  }
+  .footer-col ul li a:hover { color:var(--rose-gold); }
+  .footer-col ul li i { color:var(--rose-gold); width:16px; font-size:0.8rem; }
+  .footer-bottom {
+    border-top:1px solid var(--glass-border); padding-top:30px;
+    max-width:1200px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center;
+    color:var(--text-dim); font-size:0.8rem;
+  }
+  .footer-bottom span { color:var(--rose-gold); }
+
+  /* WHATSAPP FAB */
+  .wa-fab {
+    position:fixed; bottom:30px; right:30px; z-index:999;
+    width:60px; height:60px; border-radius:50%;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; color:#fff; text-decoration:none;
+    box-shadow:0 8px 25px rgba(37,211,102,0.4);
+    animation: pulse 2s infinite;
+    transition:transform 0.3s;
+  }
+  .wa-fab:hover { transform:scale(1.1); }
+  @keyframes pulse {
+    0%, 100% { box-shadow:0 8px 25px rgba(37,211,102,0.4); }
+    50% { box-shadow:0 8px 40px rgba(37,211,102,0.7); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity:0; transform:translateY(40px); transition:all 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-left { opacity:0; transform:translateX(-40px); transition:all 0.7s ease; }
+  .reveal-left.visible { opacity:1; transform:translateX(0); }
+  .reveal-right { opacity:0; transform:translateX(40px); transition:all 0.7s ease; }
+  .reveal-right.visible { opacity:1; transform:translateX(0); }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    🌸 Gentle<span>LUXURY SPA & WELLNESS</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+    <li><a href="#" onclick="showPage('services')" id="nav-services">Services</a></li>
+    <li><a href="#" onclick="showPage('gallery')" id="nav-gallery">Gallery</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20an%20appointment" class="nav-wa" target="_blank">
+    <i class="fab fa-whatsapp"></i> Book Now
+  </a>
+</nav>
+
+<!-- WA FAB -->
+<a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20an%20appointment" class="wa-fab" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+
+  <!-- SECTION 1: HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="petals" id="petals"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Premium Luxury Experience ✦</p>
+      <h1 class="hero-title">Where Stress <em>Dissolves</em><br>Into Wellness</h1>
+      <p class="hero-sub">Professional Massage Therapy & Body Wellness in DHA, Karachi</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20a%20Basic%20Package" class="btn-primary" target="_blank">Book Appointment</a>
+        <a href="#" class="btn-outline" onclick="showPage('services')">Explore Services</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4.1</div>
+        <div class="stat-label">Google Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Open All Week</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">DHA</div>
+        <div class="stat-label">Phase II Karachi</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ABOUT -->
+  <section style="background:var(--navy2);">
+    <div class="about-grid reveal">
+      <div class="about-imgs">
+        <div class="about-img-main">
+          <img src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=900&q=80" alt="Spa Interior">
+        </div>
+        <div class="about-img-sm">
+          <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=500&q=80" alt="Massage therapy">
+        </div>
+        <div class="about-img-sm">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Spa ambiance">
+        </div>
+      </div>
+      <div class="about-text">
+        <p class="section-eyebrow" style="text-align:left; margin-bottom:12px;">✦ Our Story</p>
+        <h2>A Private <span>Sanctuary</span><br>In the Heart of DHA</h2>
+        <p>Nestled in a private bungalow in DHA Phase II, Gentle Spa & Salon offers an intimate, luxurious wellness experience far removed from the ordinary. We believe every body deserves expert care, delivered with warmth and discretion.</p>
+        <p>Our trained therapists combine ancient massage techniques with modern wellness science to deliver transformative results. From targeted body waxing to deeply restorative massage therapy, every session is tailored to your needs.</p>
+        <p>With an exclusive shower facility, total privacy, and sessions available around the clock — we are your trusted refuge for self-care in Karachi.</p>
+        <div class="about-badges">
+          <span class="badge">🏠 Private Bungalow</span>
+          <span class="badge">🚿 Shower Facility</span>
+          <span class="badge">🔒 100% Discreet</span>
+          <span class="badge">⭐ 4.1 Google Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: PACKAGES -->
+  <section class="packages">
+    <p class="section-eyebrow reveal">✦ Choose Your Experience ✦</p>
+    <h2 class="section-title reveal">Our Signature Packages</h2>
+    <div class="section-divider"></div>
+    <div class="packages-grid reveal">
+      <div class="package-card" onclick="window.open('https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20the%20Basic%20Package%20-%20Rs8000','_blank')">
+        <div class="pkg-icon">🌿</div>
+        <div class="pkg-name">Basic Package</div>
+        <div class="pkg-desc">A perfect introduction to wellness. Full body massage with one premium service to rejuvenate your body and mind.</div>
+        <div class="pkg-price">Rs 8,000</div>
+        <div class="pkg-price-sub">PER SESSION · 1 FULL HOUR</div>
+        <ul class="pkg-features">
+          <li>Full Body Massage</li>
+          <li>1 Premium Service of Choice</li>
+          <li>60 Minutes Duration</li>
+          <li>Shower Facility Access</li>
+          <li>Private Bungalow Setting</li>
+        </ul>
+        <a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20the%20Basic%20Package%20-%20Rs8000" class="pkg-btn pkg-btn-outline" target="_blank">
+          <i class="fab fa-whatsapp"></i> Book via WhatsApp
+        </a>
+      </div>
+      <div class="package-card premium">
+        <div class="package-badge">Most Popular</div>
+        <div class="pkg-icon">👑</div>
+        <div class="pkg-name">Premium Package</div>
+        <div class="pkg-desc">The ultimate indulgence. Experience the luxury of four-hand massage with two bespoke services for complete transformation.</div>
+        <div class="pkg-price">Rs 15,000</div>
+        <div class="pkg-price-sub">PER SESSION · 1.5 HOURS</div>
+        <ul class="pkg-features">
+          <li>Four Hand Massage</li>
+          <li>2 Premium Services of Choice</li>
+          <li>90 Minutes Duration</li>
+          <li>Shower Facility Access</li>
+          <li>Private Bungalow Setting</li>
+          <li>Priority Booking</li>
+        </ul>
+        <a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20the%20Premium%20Package%20-%20Rs15000" class="pkg-btn pkg-btn-primary" target="_blank">
+          <i class="fab fa-whatsapp"></i> Book via WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: HOME GALLERY TEASER -->
+  <section>
+    <p class="section-eyebrow reveal">✦ Inside Gentle Spa ✦</p>
+    <h2 class="section-title reveal">A Glimpse of Our Space</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=700&q=80" alt="Spa room">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500&q=80" alt="Massage">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1561049501-e1f96bdd98fd?w=500&q=80" alt="Candles">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500&q=80" alt="Spa products">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&q=80" alt="Treatment">
+        <div class="gallery-overlay"></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:40px;">
+      <a href="#" onclick="showPage('gallery')" class="btn-outline">View Full Gallery</a>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TESTIMONIALS -->
+  <section class="testimonials">
+    <p class="section-eyebrow reveal">✦ Client Stories ✦</p>
+    <h2 class="section-title reveal">What Our Guests Say</h2>
+    <div class="section-divider"></div>
+    <div class="reviews-grid reveal">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Absolutely divine experience. The four-hand massage was unlike anything I've had before — completely melted away weeks of stress. The private bungalow setting makes it so comfortable."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar"><img src="https://i.pravatar.cc/80?img=47" alt="Sarah"></div>
+          <div><div class="reviewer-name">Sarah A.</div><div class="reviewer-date">Google Review · 2 weeks ago</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Perfect location in DHA, very easy to find. The therapists are incredibly skilled and professional. I booked the Premium Package and it was worth every rupee. Will definitely come again!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar"><img src="https://i.pravatar.cc/80?img=32" alt="Mehwish"></div>
+          <div><div class="reviewer-name">Mehwish K.</div><div class="reviewer-date">Google Review · 1 month ago</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"The shower facility is a great touch — feels like a complete spa day. The body waxing service is top-notch, hygienic and professional. Great value for money at this level of service."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar"><img src="https://i.pravatar.cc/80?img=25" alt="Fatima"></div>
+          <div><div class="reviewer-name">Fatima R.</div><div class="reviewer-date">Google Review · 3 weeks ago</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: LOCATION TEASER -->
+  <section>
+    <p class="section-eyebrow reveal">✦ Find Us ✦</p>
+    <h2 class="section-title reveal">Conveniently Located in DHA</h2>
+    <div class="section-divider"></div>
+    <div class="location-teaser reveal">
+      <div class="location-info">
+        <h3>Your Private Wellness Destination</h3>
+        <div class="location-detail"><i class="fas fa-map-marker-alt"></i><span>44C, 14th Commercial Street, DHA Phase II Extension, Defence Housing Authority, Karachi 75500</span></div>
+        <div class="location-detail"><i class="fas fa-phone"></i><span>+92 337 1801986</span></div>
+        <div class="location-detail"><i class="fas fa-clock"></i><span>Open 24 Hours · 7 Days a Week</span></div>
+        <div class="location-detail"><i class="fab fa-whatsapp"></i><span>WhatsApp for instant booking & availability</span></div>
+        <div style="margin-top:24px;">
+          <a href="https://wa.me/923371801986" class="btn-primary" target="_blank" style="display:inline-flex; align-items:center; gap:8px;">
+            <i class="fab fa-whatsapp"></i> Get Directions via WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="map-embed">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.9!2d67.07!3d24.81!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33d42e195ca6d%3A0x3d74b59edaca2dd!2sDHA%20Phase%202%20Extension%2C%20Karachi!5e0!3m2!1sen!2spk!4v1234567890" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: WHATSAPP CHANNEL CTA -->
+  <section style="padding:60px 40px;">
+    <div class="channel-cta reveal">
+      <div style="font-size:3rem; margin-bottom:16px;">📢</div>
+      <h3>Join Our WhatsApp Channel</h3>
+      <p>Stay updated with our latest offers, new services, staff updates, and exclusive deals. Join thousands of wellness enthusiasts and never miss a promotion!</p>
+      <a href="https://whatsapp.com/channel/0029VaDY3P16WaKtExY6kp3z" class="wa-channel-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> Join WhatsApp Channel
+      </a>
+    </div>
+  </section>
+
+</div><!-- /HOME PAGE -->
+
+
+<!-- ==================== SERVICES PAGE ==================== -->
+<div class="page" id="page-services">
+
+  <!-- SECTION 8: SERVICES HERO -->
+  <div class="services-hero" style="margin-top:70px;">
+    <div class="services-hero-bg"></div>
+    <div class="services-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>Our Services</h1>
+      <p>Expertly curated treatments for your body & soul</p>
+    </div>
+  </div>
+
+  <!-- SECTION 9: SERVICE CATEGORIES -->
+  <section>
+    <div class="service-categories">
+
+      <div class="service-cat reveal">
+        <div class="cat-header">
+          <div class="cat-icon-wrap"><i class="fas fa-hands"></i></div>
+          <div>
+            <div class="cat-title">Massage Therapy</div>
+            <div class="cat-subtitle">Healing touch for body & mind</div>
+          </div>
+        </div>
+        <div class="services-list">
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=500&q=80" alt="Body Massage"></div>
+            <div class="service-info">
+              <div class="service-name">Full Body Massage</div>
+              <div class="service-desc">A deeply relaxing, full-body treatment targeting tension and promoting circulation. Swedish and deep tissue techniques combined.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> 60 mins</div>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=80" alt="Four Hand Massage"></div>
+            <div class="service-info">
+              <div class="service-name">Four Hand Massage</div>
+              <div class="service-desc">The pinnacle of luxury — two skilled therapists working in perfect synchrony, providing an unparalleled sensation of calm.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> 90 mins</div>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1611073615830-9b691a1bb5e6?w=500&q=80" alt="Aromatherapy"></div>
+            <div class="service-info">
+              <div class="service-name">Aromatherapy Massage</div>
+              <div class="service-desc">Essential oils carefully selected to enhance your mood and aid recovery, combined with gentle massage strokes.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> 60 mins</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-cat reveal">
+        <div class="cat-header">
+          <div class="cat-icon-wrap"><i class="fas fa-star"></i></div>
+          <div>
+            <div class="cat-title">Body Waxing</div>
+            <div class="cat-subtitle">Smooth skin, lasting confidence</div>
+          </div>
+        </div>
+        <div class="services-list">
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1598257006226-2f0f1d3cffdb?w=500&q=80" alt="Waxing"></div>
+            <div class="service-info">
+              <div class="service-name">Full Body Waxing</div>
+              <div class="service-desc">Professional, hygienic full-body waxing with premium wax formulas that minimize discomfort and maximize results.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> Available</div>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="Partial Waxing"></div>
+            <div class="service-info">
+              <div class="service-name">Partial Waxing</div>
+              <div class="service-desc">Targeted waxing for specific areas including arms, legs, underarms, and more. Quick, precise, and effective.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> Available</div>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-img"><img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&q=80" alt="Premium Waxing"></div>
+            <div class="service-info">
+              <div class="service-name">Luxury Waxing Treatment</div>
+              <div class="service-desc">A post-wax soothing ritual included with all waxing services — hydrating lotions and calming care for silky smooth skin.</div>
+              <div class="service-duration"><i class="fas fa-clock"></i> Available</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 10: PROCESS -->
+  <section class="process">
+    <p class="section-eyebrow reveal">✦ Your Journey ✦</p>
+    <h2 class="section-title reveal">How It Works</h2>
+    <div class="section-divider"></div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="step-title">Book via WhatsApp</div>
+        <div class="step-desc">Message us with your preferred date, time, and package. We confirm within minutes.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-icon"><i class="fas fa-map-pin"></i></div>
+        <div class="step-title">Arrive at Our Bungalow</div>
+        <div class="step-desc">Find us at our private bungalow in DHA Phase II. Discreet entrance, warm welcome awaits.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-icon"><i class="fas fa-spa"></i></div>
+        <div class="step-title">Enjoy Your Treatment</div>
+        <div class="step-desc">Relax and let our expert therapists take care of you. Pure luxury, total privacy.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-icon"><i class="fas fa-shower"></i></div>
+        <div class="step-title">Refresh & Renew</div>
+        <div class="step-desc">Use our private shower facility to freshen up and leave feeling completely transformed.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 11: BENEFITS -->
+  <section>
+    <p class="section-eyebrow reveal">✦ Why Massage? ✦</p>
+    <h2 class="section-title reveal">The Power of Therapeutic Touch</h2>
+    <div class="section-divider"></div>
+    <div class="benefits-grid reveal">
+      <div class="benefit-card">
+        <div class="benefit-icon">🧘</div>
+        <div class="benefit-title">Reduces Stress</div>
+        <div class="benefit-text">Regular massage therapy significantly lowers cortisol levels, promoting a calmer, more balanced state of mind.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💆</div>
+        <div class="benefit-title">Relieves Muscle Tension</div>
+        <div class="benefit-text">Deep tissue techniques target chronic knots and tension, restoring flexibility and reducing pain.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">❤️</div>
+        <div class="benefit-title">Improves Circulation</div>
+        <div class="benefit-text">Enhanced blood flow delivers oxygen and nutrients throughout the body, boosting energy and vitality.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">😴</div>
+        <div class="benefit-title">Better Sleep</div>
+        <div class="benefit-text">Massage promotes the release of serotonin, improving sleep quality and helping combat insomnia.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✨</div>
+        <div class="benefit-title">Skin Health</div>
+        <div class="benefit-text">Regular body treatments with quality products improve skin texture, tone, and radiance.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛡️</div>
+        <div class="benefit-title">Immunity Boost</div>
+        <div class="benefit-text">Studies show regular massage supports lymphatic drainage and strengthens your natural immune response.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 12: PACKAGES CTA -->
+  <section style="background:var(--navy2); padding:80px 40px; text-align:center;">
+    <p class="section-eyebrow reveal">✦ Ready to Begin? ✦</p>
+    <h2 class="section-title reveal">Choose Your Package</h2>
+    <div class="section-divider"></div>
+    <div style="max-width:600px; margin:0 auto 40px;" class="reveal">
+      <p style="color:var(--text-dim); line-height:1.8;">All our packages include access to our private shower facility, premium product use, and the comfort of a completely private bungalow setting in DHA.</p>
+    </div>
+    <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;" class="reveal">
+      <a href="https://wa.me/923371801986?text=Book%20Basic%20Package%20Rs8000" class="btn-outline" target="_blank">Basic — Rs 8,000 / 60 mins</a>
+      <a href="https://wa.me/923371801986?text=Book%20Premium%20Package%20Rs15000" class="btn-primary" target="_blank">Premium — Rs 15,000 / 90 mins</a>
+    </div>
+  </section>
+
+</div><!-- /SERVICES PAGE -->
+
+
+<!-- ==================== GALLERY PAGE ==================== -->
+<div class="page" id="page-gallery">
+
+  <!-- SECTION 13: GALLERY HERO -->
+  <div class="services-hero" style="margin-top:70px; background:none;">
+    <div class="services-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=1600&q=80');"></div>
+    <div class="services-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>Our Gallery</h1>
+      <p>A visual journey through our sanctuary</p>
+    </div>
+  </div>
+
+  <!-- SECTION 14: GALLERY FILTER + MAIN GRID -->
+  <section>
+    <p class="section-eyebrow reveal">✦ Browse Our Space ✦</p>
+    <h2 class="section-title reveal">Inside Gentle Spa & Salon</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-filter reveal">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Massage Rooms</button>
+      <button class="filter-btn">Ambiance</button>
+      <button class="filter-btn">Treatments</button>
+      <button class="filter-btn">Facilities</button>
+    </div>
+    <div class="gallery-page-grid reveal">
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80" alt="Spa room"><div class="overlay"><span class="overlay-label">Treatment Room</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80" alt="Massage"><div class="overlay"><span class="overlay-label">Body Massage</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80" alt="Spa interior"><div class="overlay"><span class="overlay-label">Spa Interior</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1561049501-e1f96bdd98fd?w=600&q=80" alt="Candles"><div class="overlay"><span class="overlay-label">Relaxation Ambiance</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Treatment"><div class="overlay"><span class="overlay-label">Premium Treatment</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80" alt="Products"><div class="overlay"><span class="overlay-label">Luxury Products</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80" alt="Face care"><div class="overlay"><span class="overlay-label">Skin Care</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Relaxation"><div class="overlay"><span class="overlay-label">Pure Relaxation</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1598257006226-2f0f1d3cffdb?w=600&q=80" alt="Waxing"><div class="overlay"><span class="overlay-label">Body Waxing</span></div></div>
+    </div>
+  </section>
+
+  <!-- SECTION 15: AMBIANCE -->
+  <section style="background:var(--navy2);">
+    <p class="section-eyebrow reveal">✦ The Atmosphere ✦</p>
+    <h2 class="section-title reveal">Crafted for Tranquility</h2>
+    <div class="section-divider"></div>
+    <div class="ambiance-grid reveal">
+      <div class="ambiance-col">
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80" alt="Candle" style="height:180px;"></div>
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1611073615830-9b691a1bb5e6?w=400&q=80" alt="Oils" style="height:180px;"></div>
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=400&q=80" alt="Spa" style="height:180px;"></div>
+      </div>
+      <div class="ambiance-col mid">
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1601312268634-f5f2cca44eaa?w=600&q=80" alt="Main spa" style="height:400px;"></div>
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1629909615957-f7e03c0e5897?w=600&q=80" alt="Bath" style="height:160px;"></div>
+      </div>
+      <div class="ambiance-col">
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?w=400&q=80" alt="Petals" style="height:180px;"></div>
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1643046395393-76de285082f3?w=400&q=80" alt="Towels" style="height:180px;"></div>
+        <div class="ambiance-item"><img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=400&q=80" alt="Relax" style="height:180px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 16: MORE GALLERY -->
+  <section>
+    <p class="section-eyebrow reveal">✦ More from Gentle Spa ✦</p>
+    <h2 class="section-title reveal">Treatments & Facilities</h2>
+    <div class="section-divider"></div>
+    <div class="gallery-page-grid reveal">
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1591343395082-e120087004b4?w=600&q=80" alt="Spa day"><div class="overlay"><span class="overlay-label">Spa Day</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" alt="Wellness"><div class="overlay"><span class="overlay-label">Wellness</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=601&q=80" alt="Care"><div class="overlay"><span class="overlay-label">Body Care</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1510021687890-0e2f53b9e2b3?w=600&q=80" alt="Bath"><div class="overlay"><span class="overlay-label">Shower & Refresh</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1552693673-1bf958298935?w=600&q=80" alt="Oils"><div class="overlay"><span class="overlay-label">Essential Oils</span></div></div>
+      <div class="gallery-page-item"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Luxury"><div class="overlay"><span class="overlay-label">Luxury Suite</span></div></div>
+    </div>
+  </section>
+
+</div><!-- /GALLERY PAGE -->
+
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div class="page" id="page-contact">
+
+  <!-- SECTION 17: CONTACT HERO -->
+  <div class="services-hero" style="margin-top:70px; background:none;">
+    <div class="services-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1612817288484-6f916006741a?w=1600&q=80');"></div>
+    <div class="services-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>Contact Us</h1>
+      <p>Book your appointment · Get directions · Ask anything</p>
+    </div>
+  </div>
+
+  <!-- SECTION 18: CONTACT GRID -->
+  <section>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <h2>Let's Connect</h2>
+        <p>We're available around the clock to take your bookings and answer any questions. Message us on WhatsApp for the fastest response!</p>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone"></i></div>
+          <div><div class="contact-label">Phone / WhatsApp</div><div class="contact-val">+92 337 1801986</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div><div class="contact-label">Address</div><div class="contact-val">44C, 14th Commercial Street<br>DHA Phase II Extension, Karachi 75500</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-clock"></i></div>
+          <div><div class="contact-label">Hours</div><div class="contact-val">Open 24 Hours · 7 Days a Week</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+          <div><div class="contact-label">WhatsApp Channel</div><div class="contact-val"><a href="https://whatsapp.com/channel/0029VaDY3P16WaKtExY6kp3z" style="color:var(--rose-gold); text-decoration:none;" target="_blank">Join for Updates & New Staff Pics</a></div></div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>📱 Book via WhatsApp</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="c_name" placeholder="Enter your name">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="c_phone" placeholder="+92 3XX XXXXXXX">
+          </div>
+          <div class="form-group">
+            <label>Preferred Date</label>
+            <input type="date" id="c_date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Select Package</label>
+          <select id="c_pkg">
+            <option value="">-- Choose Package --</option>
+            <option value="Basic Package - Rs 8000 (1 Hour)">Basic Package — Rs 8,000 (1 Hour)</option>
+            <option value="Premium Package - Rs 15000 (1.5 Hours)">Premium Package — Rs 15,000 (1.5 Hours)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Time</label>
+          <select id="c_time">
+            <option value="">-- Choose Time --</option>
+            <option>Morning (11am – 2pm)</option>
+            <option>Afternoon (2pm – 7pm)</option>
+            <option>Evening (7pm – 12am)</option>
+            <option>Late Night (12am – 5am)</option>
+            <option>Early Morning (5am – 11am)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Additional Notes</label>
+          <textarea id="c_notes" placeholder="Any special requests or questions..."></textarea>
+        </div>
+        <button class="form-submit" onclick="sendBooking()">
+          <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> Send Booking via WhatsApp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 19: HOURS -->
+  <section class="hours-section">
+    <p class="section-eyebrow reveal">✦ We're Always Open ✦</p>
+    <h2 class="section-title reveal">Opening Hours</h2>
+    <div class="section-divider"></div>
+    <div class="hours-grid reveal">
+      <div class="day-card"><div class="day-name">MON</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">TUE</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">WED</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">THU</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">FRI</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">SAT</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+      <div class="day-card"><div class="day-name">SUN</div><div class="day-hours">24 Hours</div><div class="day-badge">Open</div></div>
+    </div>
+    <p style="text-align:center; color:var(--text-dim); margin-top:24px; font-size:0.85rem;">✦ We are available 24/7. Book any time that suits you!</p>
+  </section>
+
+  <!-- SECTION 20: MAP FULL -->
+  <section>
+    <p class="section-eyebrow reveal">✦ Find Us ✦</p>
+    <h2 class="section-title reveal">Our Location</h2>
+    <div class="section-divider"></div>
+    <div class="reveal" style="max-width:1000px; margin:0 auto; border-radius:24px; overflow:hidden; border:1px solid var(--glass-border); height:400px;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.9!2d67.07!3d24.81!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33d42e195ca6d%3A0x3d74b59edaca2dd!2sDHA%20Phase%202%20Extension%2C%20Karachi!5e0!3m2!1sen!2spk!4v1234567890" width="100%" height="400" style="border:0; filter:grayscale(0.2) saturate(1.3);" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- SECTION 21: FAQ -->
+  <section style="background:var(--navy2);">
+    <p class="section-eyebrow reveal">✦ Common Questions ✦</p>
+    <h2 class="section-title reveal">Frequently Asked Questions</h2>
+    <div class="section-divider"></div>
+    <div class="faq-list reveal">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How do I book an appointment? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Simply message us on WhatsApp at +92 337 1801986. Share your preferred date, time, and package. We typically confirm within a few minutes!</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is the location private and discreet? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Absolutely. We operate from a private bungalow in DHA Phase II. Your privacy and comfort are our top priorities. All sessions are 100% confidential.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What's included in the shower facility? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Our shower facility is clean, private, and well-stocked with fresh towels and basic toiletries. You're welcome to use it before or after your treatment.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Are you really open 24 hours? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Yes! We are open 24 hours, 7 days a week. However, we recommend booking in advance for late-night or early-morning slots to ensure therapist availability.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Can I choose which services to include in my package? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">Yes! Both packages include service choices. The Basic includes 1 service, Premium includes 2. You can choose from our full service menu — body waxing, massage types, and more.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What payment methods do you accept? <i class="fas fa-plus"></i></div>
+        <div class="faq-a">We accept cash (PKR), Easypaisa, JazzCash, and bank transfer. Please confirm at the time of booking. Payment is made at the spa before the session begins.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 22: CHANNEL + FINAL CTA -->
+  <section style="padding:80px 40px;">
+    <div class="channel-cta reveal">
+      <div style="font-size:3rem; margin-bottom:16px;">🌸</div>
+      <h3>Ready to Experience Gentle Spa?</h3>
+      <p>Book your appointment today and step into a world of luxury wellness. Available 24/7, just a WhatsApp message away.</p>
+      <a href="https://wa.me/923371801986?text=Hi%2C%20I%20want%20to%20book%20an%20appointment%20at%20Gentle%20Spa%20%26%20Salon" class="wa-channel-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> Book Now on WhatsApp
+      </a>
+    </div>
+  </section>
+
+</div><!-- /CONTACT PAGE -->
+
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">🌸 Gentle Spa & Salon</span>
+      <p>Gentle Spa & Salon — a premium wellness sanctuary nestled in a private bungalow in DHA Phase II, Karachi. Expert therapists. Total privacy. Open 24 hours, 7 days a week.</p>
+      <div class="footer-social">
+        <a href="https://whatsapp.com/channel/0029VaDY3P16WaKtExY6kp3z" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')"><i class="fas fa-chevron-right"></i>Home</a></li>
+        <li><a href="#" onclick="showPage('services')"><i class="fas fa-chevron-right"></i>Services</a></li>
+        <li><a href="#" onclick="showPage('gallery')"><i class="fas fa-chevron-right"></i>Gallery</a></li>
+        <li><a href="#" onclick="showPage('contact')"><i class="fas fa-chevron-right"></i>Contact</a></li>
+        <li><a href="https://whatsapp.com/channel/0029VaDY3P16WaKtExY6kp3z" target="_blank"><i class="fab fa-whatsapp"></i>WhatsApp Channel</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><i class="fas fa-dot-circle"></i>Body Massage</li>
+        <li><i class="fas fa-dot-circle"></i>Four Hand Massage</li>
+        <li><i class="fas fa-dot-circle"></i>Body Waxing</li>
+        <li><i class="fas fa-dot-circle"></i>Aromatherapy</li>
+        <li><i class="fas fa-dot-circle"></i>Premium Packages</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <ul>
+        <li><i class="fas fa-phone"></i>+92 337 1801986</li>
+        <li><i class="fas fa-map-marker-alt"></i>DHA Phase II, Karachi</li>
+        <li><i class="fas fa-clock"></i>Open 24/7</li>
+        <li><i class="fas fa-star"></i>4.1 ★ Google (100+ Reviews)</li>
+        <li><i class="fas fa-home"></i>Private Bungalow</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 <span>Gentle Spa & Salon</span> · DHA Karachi · All Rights Reserved</p>
+    <p>Made with <span>♥</span> for luxury wellness</p>
+  </div>
+</footer>
+
+<script>
+  // PAGE NAVIGATION
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    initReveal();
+  }
+
+  // FLOATING PETALS
+  function createPetals() {
+    const container = document.getElementById('petals');
+    for (let i = 0; i < 20; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.animationDuration = (8 + Math.random() * 12) + 's';
+      petal.style.animationDelay = (Math.random() * 10) + 's';
+      petal.style.opacity = 0.3 + Math.random() * 0.5;
+      petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+      container.appendChild(petal);
+    }
+  }
+
+  // SCROLL REVEAL
+  function initReveal() {
+    setTimeout(() => {
+      const items = document.querySelectorAll('.page.active .reveal, .page.active .reveal-left, .page.active .reveal-right');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      }, { threshold: 0.1 });
+      items.forEach(el => observer.observe(el));
+    }, 100);
+  }
+
+  // FAQ TOGGLE
+  function toggleFaq(el) {
+    el.classList.toggle('open');
+  }
+
+  // GALLERY FILTER (UI only)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // WHATSAPP BOOKING FORM
+  function sendBooking() {
+    const name = document.getElementById('c_name').value || 'Customer';
+    const phone = document.getElementById('c_phone').value || '';
+    const date = document.getElementById('c_date').value || 'flexible';
+    const pkg = document.getElementById('c_pkg').value || 'Not selected';
+    const time = document.getElementById('c_time').value || 'Not specified';
+    const notes = document.getElementById('c_notes').value || '';
+    const msg = `Hi, I want to book an appointment at Gentle Spa & Salon!\n\n👤 Name: ${name}\n📞 Phone: ${phone}\n📅 Date: ${date}\n⏰ Time: ${time}\n📦 Package: ${pkg}${notes ? '\n📝 Notes: ' + notes : ''}`;
+    window.open('https://wa.me/923371801986?text=' + encodeURIComponent(msg), '_blank');
+  }
+
+  // INIT
+  createPetals();
+  initReveal();
+</script>
+</body>
+</html>
